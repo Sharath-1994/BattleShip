@@ -125,7 +125,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player2 [playerName=" + playerName + ", playerNumber=" + playerNumber
+		return "Player [playerName=" + playerName + ", playerNumber=" + playerNumber
 				+ ", dimensionOfBattleGroundWidth=" + dimensionOfBattleGroundWidth + ", dimensionOfBattleGroundHeight="
 				+ dimensionOfBattleGroundHeight + ", typeOfShip1=" + typeOfShip1 + ", DimensionOfShip1Column="
 				+ DimensionOfShip1Column + ", DimensionOfShip1Row=" + DimensionOfShip1Row

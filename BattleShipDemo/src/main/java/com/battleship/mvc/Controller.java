@@ -58,16 +58,14 @@ public class Controller {
 		p.setAddBattleField2ToDimension(request.getParameter("setShipQ"));
 		p.setMissileTarget(request.getParameter("missiles"));
 
-		System.out.println(p);
 
-		service.sendDataToDAO(p);
-
-	/*	boolean result = service.sendDataToDAO(p);
+		boolean result = service.sendDataToDAO(p);
 		if (result == true) {
-			mv.setViewName("PlayerCreated");
-		} else {
 			mv.setViewName("unableToCreate");
-		}*/
+
+		} else {
+			mv.setViewName("PlayerCreated");
+		}
 
 		return mv;
 
@@ -78,6 +76,8 @@ public class Controller {
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("PlayerCreated2");
+		
+		
 		Player p = new Player();
 		p.setPlayerName(request.getParameter("player1"));
 		p.setPlayerNumber(2);
@@ -92,14 +92,16 @@ public class Controller {
 		p.setDimensionOfShip2Row(Integer.parseInt(request.getParameter("shipQ1Width")));
 		p.setAddBattleField2ToDimension(request.getParameter("setShipQ"));
 		p.setMissileTarget(request.getParameter("missiles"));
-		service.sendData2ToDAO(p);
-	/*	
-		boolean result = service.sendDataToDAO(p);
+		
+		
+		boolean result = service.sendData2ToDAO(p);
+
 		if (result == true) {
-			mv.setViewName("PlayerCreated2");
-		} else {
 			mv.setViewName("unableToCreate");
-		}*/
+
+		} else {
+			mv.setViewName("PlayerCreated2");
+		}
 
 		return mv;
 	}
@@ -107,10 +109,9 @@ public class Controller {
 	@RequestMapping("/StartGame")
 	public String gameStart() {
 
-		//service.attackSeviceData(attack)
-		
+		// service.attackSeviceData(attack)
+
 		return "battleResult";
 	}
 
-	
 }

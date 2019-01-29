@@ -68,10 +68,8 @@ public class BattleShipLogic {
 
 	}
 
-	// Check if the given dimension by the user is valid input comparing to battle
-	// ship
-	// area
-	@SuppressWarnings("unused")
+	
+	//Compare the dimension of ships vs dimension of Battleground
 	public static boolean checkDimensionLogic(Player p) {
 
 		int dimension = p.getDimensionOfBattleGroundHeight() * p.getDimensionOfBattleGroundWidth();
@@ -80,10 +78,16 @@ public class BattleShipLogic {
 
 		int dimesionOfShip2 = p.getDimensionOfShip2Column() * p.getDimensionOfShip1Row();
 
-		return false;
+		int a = dimensionOfShip + dimesionOfShip2;
+
+		if(a >= dimension) {
+			return true;
+		}
+		else {
+			return false;
+		}
 
 	}
-
 
 	public static List<String> seperateMissiles(String missiles) {
 

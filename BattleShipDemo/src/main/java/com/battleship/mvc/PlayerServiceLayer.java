@@ -1,12 +1,10 @@
 package com.battleship.mvc;
 
 
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.battleship.logic.BattleShipLogic;
 import com.battleship.model.Player;
 
 @Service
@@ -27,7 +25,6 @@ public class PlayerServiceLayer {
 
 	public boolean attackSeviceData(String attack) {
 		
-
 		return true;
 
 	}

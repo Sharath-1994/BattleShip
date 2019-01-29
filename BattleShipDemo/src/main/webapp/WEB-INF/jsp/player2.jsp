@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<h2 align="center">Player 1 Details</h2>
+	<h2 align="center">Player 2 Details</h2>
 
 
 	<form action="/addPlayer2" method="get">
