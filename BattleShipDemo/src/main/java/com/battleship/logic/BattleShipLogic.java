@@ -43,9 +43,10 @@ public class BattleShipLogic {
 		return numbers;
 
 	}
+	
+	
 
 	// Logic to check while placing ship to battle field
-
 	public static int checkNumber(String dimension) {
 		String a = dimension;
 		char a1 = a.charAt(1);
@@ -55,7 +56,6 @@ public class BattleShipLogic {
 	}
 
 	// Display Player Battle field
-
 	public static void printArray(int[][] a) {
 
 		System.out.println("Player Battlefield");
@@ -89,6 +89,7 @@ public class BattleShipLogic {
 
 	}
 
+	//Spilt the number of missiles given into List
 	public static List<String> seperateMissiles(String missiles) {
 
 		String l[] = missiles.trim().split(",");
