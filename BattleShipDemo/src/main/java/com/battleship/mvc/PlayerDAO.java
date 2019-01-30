@@ -14,7 +14,7 @@ public class PlayerDAO {
 	public boolean storeData(Player p) {
 
 		boolean result = BattleShipLogic.checkDimensionLogic(p);
-		
+
 		if (result == true) {
 			log.error("Unable to create");
 			return true;
@@ -27,9 +27,17 @@ public class PlayerDAO {
 	}
 
 	public boolean storeData2(Player p) {
-
+		boolean result = BattleShipLogic.checkDimensionLogic(p);
 		PlayerDAO.player2Details(p);
-		return BattleShipLogic.checkDimensionLogic(p);
+		if (result == true) {
+			log.error("Unable to create");
+			return true;
+		} else {
+			log.info("Able to create");
+			PlayerDAO.player1Details(p);
+			return false;
+
+		}
 
 	}
 
@@ -37,7 +45,6 @@ public class PlayerDAO {
 
 		int[][] a = new int[p1.getDimensionOfBattleGroundWidth()][p1.getDimensionOfBattleGroundHeight()];
 
-		
 		BattleShipLogic.printArray(a);
 		log.info("Player 1 battle field");
 		return a;
