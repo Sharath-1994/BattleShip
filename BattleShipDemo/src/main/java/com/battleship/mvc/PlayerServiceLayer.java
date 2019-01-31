@@ -13,17 +13,17 @@ public class PlayerServiceLayer {
 	@Autowired
 	PlayerDAO dao;
 
-	public boolean sendDataToDAO(Player p) {
+	public boolean sendDataToDAO(Player p) throws Exception {
 
 		return dao.storeData(p);
 	}
 	
-	public boolean sendData2ToDAO(Player p) {
+	public boolean sendData2ToDAO(Player p) throws Exception {
 		return dao.storeData2(p);
 	}
 	
 
-	public boolean attackSeviceData(String attack) {
+	public boolean attackSeviceData() {
 		
 		return true;
 

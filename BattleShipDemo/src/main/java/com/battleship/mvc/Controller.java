@@ -34,7 +34,7 @@ public class Controller {
 	PlayerServiceLayer service;
 
 	@RequestMapping("/addPlayer1")
-	public ModelAndView addPlayer1(HttpServletRequest request) {
+	public ModelAndView addPlayer1(HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView();
 
@@ -49,6 +49,7 @@ public class Controller {
 
 		p.setDimensionOfShip1Column(Integer.parseInt(request.getParameter("shipp1Height")));
 		p.setDimensionOfShip1Row(Integer.parseInt(request.getParameter("shipp1Width")));
+		
 		p.setDimensionOfShip2Column(Integer.parseInt(request.getParameter("shipQ1Height")));
 		p.setDimensionOfShip2Row(Integer.parseInt(request.getParameter("shipQ1Width")));
 
@@ -72,7 +73,7 @@ public class Controller {
 	}
 
 	@RequestMapping("/addPlayer2")
-	public ModelAndView addPlayer2(HttpServletRequest request) {
+	public ModelAndView addPlayer2(HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("PlayerCreated2");
@@ -109,7 +110,7 @@ public class Controller {
 	@RequestMapping("/StartGame")
 	public String gameStart() {
 
-		// service.attackSeviceData(attack)
+		 service.attackSeviceData();
 
 		return "battleResult";
 	}

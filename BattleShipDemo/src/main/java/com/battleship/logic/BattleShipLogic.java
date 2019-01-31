@@ -43,15 +43,46 @@ public class BattleShipLogic {
 		return numbers;
 
 	}
-	
-	
 
 	// Logic to check while placing ship to battle field
 	public static int checkNumber(String dimension) {
 		String a = dimension;
 		char a1 = a.charAt(1);
 
-		int result = Character.getNumericValue(a1);
+		int result = 0;
+		switch (a1) {
+
+		case '1':
+			result = 0;
+			break;
+		case '2':
+			result = 1;
+			break;
+		case '3':
+			result = 2;
+			break;
+		case '4':
+			result = 3;
+			break;
+		case '5':
+			result = 4;
+			break;
+		case '6':
+			result = 5;
+			break;
+		case '7':
+			result = 6;
+			break;
+		case '8':
+			result = 7;
+			break;
+		case '9':
+			result = 8;
+			break;
+
+		}
+
+		// int result = Character.getNumericValue(a1);
 		return result;
 	}
 
@@ -68,8 +99,7 @@ public class BattleShipLogic {
 
 	}
 
-	
-	//Compare the dimension of ships vs dimension of Battleground
+	// Compare the dimension of ships vs dimension of Battleground
 	public static boolean checkDimensionLogic(Player p) {
 
 		int dimension = p.getDimensionOfBattleGroundHeight() * p.getDimensionOfBattleGroundWidth();
@@ -80,16 +110,15 @@ public class BattleShipLogic {
 
 		int a = dimensionOfShip + dimesionOfShip2;
 
-		if(a >= dimension) {
+		if (a >= dimension) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 
 	}
 
-	//Spilt the number of missiles given into List
+	// Spilt the number of missiles given into List
 	public static List<String> seperateMissiles(String missiles) {
 
 		String l[] = missiles.trim().split(",");
@@ -97,6 +126,27 @@ public class BattleShipLogic {
 		List<String> list = new ArrayList<String>(Arrays.asList(l));
 
 		return list;
+
+	}
+
+	// Add Battle ship in dimenion given
+	public static void addElemenetInArrayByDimension(int[][] a, int battleShipWidth, int bsHeight, int shipType,
+			int dimensionOfShipFromWidth, int dimensionOfShipFromHeight) throws Exception {
+
+		int[][] b = a;
+
+		for (int row = dimensionOfShipFromWidth; row < dimensionOfShipFromWidth + battleShipWidth; row++) {
+
+			for (int col = dimensionOfShipFromHeight; col < dimensionOfShipFromHeight + bsHeight; col++) {
+
+				if (b[row][col] == 0) {
+
+					b[row][col] = shipType;
+				} else {
+					throw new Exception("Unable to add ship as other ship already exists");
+				}
+			}
+		}
 
 	}
 }
