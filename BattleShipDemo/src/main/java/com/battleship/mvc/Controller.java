@@ -38,7 +38,6 @@ public class Controller {
 
 		ModelAndView mv = new ModelAndView();
 
-		mv.setViewName("PlayerCreated");
 
 		Player p = new Player();
 		p.setPlayerName(request.getParameter("player1"));
@@ -76,7 +75,6 @@ public class Controller {
 	public ModelAndView addPlayer2(HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("PlayerCreated2");
 		
 		
 		Player p = new Player();

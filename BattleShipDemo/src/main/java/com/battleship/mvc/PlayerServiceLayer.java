@@ -25,7 +25,7 @@ public class PlayerServiceLayer {
 
 	public boolean attackSeviceData() {
 		
-		return true;
+		return dao.attackShips();
 
 	}
 

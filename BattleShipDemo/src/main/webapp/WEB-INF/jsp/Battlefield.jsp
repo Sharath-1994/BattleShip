@@ -9,9 +9,10 @@
 <body>
 
 
-<h2 align="center">Battle field Results</h2>
+<h2 align="center">Welcome to Battle field game</h2>
 
 
+<a href="createPlayer1"> Click here to Start game  </a>
 
 </body>
 </html>

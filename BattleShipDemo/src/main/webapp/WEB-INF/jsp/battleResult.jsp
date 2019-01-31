@@ -8,16 +8,9 @@
 </head>
 <body>
 
-Attacking spot
-
-<form action="/attack">
+<h2>Battle results are : </h2>
 
 
-Attack position : <input type="text" name="postion"> <br>
-
-<input type="submit" value="Submit">
-
-</form>
 
 </body>
 </html>

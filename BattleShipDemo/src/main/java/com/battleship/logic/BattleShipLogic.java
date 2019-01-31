@@ -82,7 +82,6 @@ public class BattleShipLogic {
 
 		}
 
-		// int result = Character.getNumericValue(a1);
 		return result;
 	}
 
@@ -149,4 +148,18 @@ public class BattleShipLogic {
 		}
 
 	}
+
+	//Attacking player logic
+	public static int[][] Attack(int[][] a, int row, int col, Player p) {
+
+        int[][] b = a;
+
+        if (b[row][col] == 1 || b[row][col] == 2) {
+            System.out.println(b[row][col]);
+            b[row][col] = b[row][col] - 1;
+            System.out.println(p.getPlayerName() + "Hits" + "Row"+ row + "Col" + col);
+
+        }
+        return b;
+    }
 }

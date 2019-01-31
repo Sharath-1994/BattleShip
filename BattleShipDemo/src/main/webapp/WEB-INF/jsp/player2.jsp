@@ -19,7 +19,7 @@
 			name="width" style="width: 15px" required="required"> * <input type="text"
 			name="height" style="width: 15px" required="required"> <br>
 		<br> Type for battleship 1: <select name="shipP">
-			<option value="1">P</option>
+			<option value="1" selected="selected">P</option>
 			<option value="2">Q</option>
 
 		</select> &nbsp; &nbsp; Dimension for battleship 1:  <input type="text" name="shipp1Width"
@@ -56,7 +56,7 @@
 			
 		</select> <br><br> Location of battleship 1 for player B: <select name="shipQ">
 			<option value="1">P</option> 
-			<option value="2">Q</option>
+			<option value="2" selected="selected">Q</option>
 
 		</select> &nbsp; &nbsp; Dimension for battleship 2:<input type="text" name="shipQ1Width"
 			style="width: 15px"> * <input type="text" name="shipQ1Height"
