@@ -54,7 +54,7 @@
 			<option value="E4">E4</option>
 			<option value="E5">E5</option>
 			
-		</select> <br><br> Location of battleship 1 for player B: <select name="shipQ">
+		</select> <br><br> Type for battleship 2: <select name="shipQ">
 			<option value="1">P</option> 
 			<option value="2" selected="selected">Q</option>
 

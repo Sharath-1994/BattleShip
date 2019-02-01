@@ -17,7 +17,21 @@ public class PlayerDAO {
 	private final static Logger log = org.slf4j.LoggerFactory.getLogger(PlayerDAO.class);
 
 	private static Map<Integer, int[][]> data = new HashMap<>();
+	
+	
 	private List<Player> playerData = new ArrayList<>();
+	
+	
+
+	// flag to identify hit or miss
+	private static int hit = -1;
+
+	// flag to identify current player
+	private static int currentPlayer = -1;
+
+	private static boolean resultPlayer1 = false;
+
+	private static boolean resultPlayer2 = false;
 
 	public boolean storeData(Player p) throws Exception {
 
@@ -99,32 +113,116 @@ public class PlayerDAO {
 	// Attack logic
 	public boolean attackShips() {
 
+		String message[];
 		System.out.println("Attack ship method called");
 
 		int a[][] = data.get(1);
 		int b[][] = data.get(2);
 
-
 		Player p1 = playerData.get(0);
 		Player p2 = playerData.get(1);
 
+		// Player 1 Missiles
 		List<String> missilesOfPlayer1 = BattleShipLogic.seperateMissiles(p1.getMissileTarget());
-		System.out.println(missilesOfPlayer1.get(0) + missilesOfPlayer1.get(0) + "Missiles of Player 1");
+
+		// Player 2 Missiles
 		List<String> missilesOfPlayer2 = BattleShipLogic.seperateMissiles(p2.getMissileTarget());
-		System.out.println(missilesOfPlayer1.get(0) + missilesOfPlayer1.get(0) + "Missiles of Player 2");
 
-		for (int i = 0; i < missilesOfPlayer1.size(); i++) {
-			String missileLocation = missilesOfPlayer1.get(i);
+		int lenghtOfBothArray = missilesOfPlayer1.size() + missilesOfPlayer2.size();
 
-			int locationRow = BattleShipLogic.checkChar(missileLocation);
-			int locationCol = BattleShipLogic.checkNumber(missileLocation);
-			System.out.println(missilesOfPlayer1.remove(i + "Missile removed "));
-			int update[][] = BattleShipLogic.Attack(b, locationRow, locationCol, p1);
-			PlayerDAO.updatePlayer2(update);
+		// Initial calling of Player 1
+		if (hit == -1) {
+			currentPlayer = 1;
+			missilesOfPlayer1 = PlayerDAO.chanceToNextPlayer(b, missilesOfPlayer1, p1);
+			for (int i = 0; i < missilesOfPlayer1.size(); i++) {
+				System.out.println("List of modied array list after removing 1 element " + missilesOfPlayer1.get(i));
+			}
 
 		}
 
+		for (int i = 0; i < lenghtOfBothArray; i++) {
+			if (hit == 0 || hit == 1) {
+
+				switch (hit) {
+
+				case 1:
+					if (currentPlayer == 1) {
+						resultPlayer1 = BattleShipLogic.checkResult(b);
+						if (missilesOfPlayer2.size() == 0) {
+							chanceToNextPlayer(b, missilesOfPlayer1, p1);
+							currentPlayer = 1;
+						}
+						System.out.println("Hit by player 1");
+
+						chanceToNextPlayer(b, missilesOfPlayer1, p1);
+
+					} else if (currentPlayer == 2) {
+						resultPlayer2 = BattleShipLogic.checkResult(a);
+						if (missilesOfPlayer1.size() == 0) {
+							chanceToNextPlayer(a, missilesOfPlayer2, p2);
+							currentPlayer = 2;
+						}
+						System.out.println("Hit by player 2");
+						chanceToNextPlayer(a, missilesOfPlayer2, p2);
+					}
+
+				case 0:
+					if (currentPlayer == 1) {
+						System.out.println("Miss by player 1");
+						if (missilesOfPlayer2.size() == 0) {
+							chanceToNextPlayer(b, missilesOfPlayer1, p1);
+							currentPlayer = 1;
+						} else {
+							currentPlayer = 2;
+							chanceToNextPlayer(a, missilesOfPlayer2, p2);
+						}
+					} else if (currentPlayer == 2) {
+						System.out.println("Miss by player 2");
+						if (missilesOfPlayer1.size() == 0) {
+							chanceToNextPlayer(a, missilesOfPlayer2, p2);
+							currentPlayer = 2;
+						} else {
+							currentPlayer = 1;
+							chanceToNextPlayer(b, missilesOfPlayer1, p1);
+						}
+
+					}
+
+				}
+			}
+		}
+
 		return false;
+
+	}
+
+	public static List<String> chanceToNextPlayer(int[][] player, List<String> missile, Player p) {
+
+		System.out.println("Inside chanceToNextPlayer function " + "hit" + hit + "player board" + player);
+		for (int j = 0; j < missile.size(); j++) {
+			System.out.println("Inside chanceToNextPlayer missle list" + missile.get(j));
+		}
+
+		List<String> missileDuplicate = missile;
+
+		for (int i = 0; i < missileDuplicate.size();) {
+
+			String missileLocation = missileDuplicate.get(i);
+			int locationRow = BattleShipLogic.checkChar(missileLocation);
+			int locationCol = BattleShipLogic.checkNumber(missileLocation);
+			boolean hitResult = BattleShipLogic.Attack(player, locationRow, locationCol, p);
+			missileDuplicate.remove(i);
+
+			if (hitResult == true) {
+				hit = 1;
+				return missileDuplicate;
+			} else {
+				hit = 0;
+				return missileDuplicate;
+			}
+		}
+
+		return missileDuplicate;
 
 	}
 

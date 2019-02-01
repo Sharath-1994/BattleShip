@@ -88,7 +88,6 @@ public class BattleShipLogic {
 	// Display Player Battle field
 	public static void printArray(int[][] a) {
 
-		System.out.println("Player Battlefield");
 		for (int row = 0; row < a.length; row++) {
 			for (int col = 0; col < a[row].length; col++) {
 				System.out.print(a[row][col] + " ");
@@ -149,17 +148,57 @@ public class BattleShipLogic {
 
 	}
 
-	//Attacking player logic
-	public static int[][] Attack(int[][] a, int row, int col, Player p) {
+	// Attacking player logic
+	public static boolean Attack(int[][] a, int row, int col, Player p) {
 
-        int[][] b = a;
+		int[][] b = a;
 
-        if (b[row][col] == 1 || b[row][col] == 2) {
-            System.out.println(b[row][col]);
-            b[row][col] = b[row][col] - 1;
-            System.out.println(p.getPlayerName() + "Hits" + "Row"+ row + "Col" + col);
+		if (b[row][col] == 1 || b[row][col] == 2) {
+			System.out.println(b[row][col]);
+			b[row][col] = b[row][col] - 1;
+			System.out.println(p.getPlayerName() + "Hits" + "Row" + row + "Col" + col);
+			printArray(b);
+			return true;
+		}
+		return false;
+	}
 
-        }
-        return b;
-    }
+	/*
+	 * // Attacking player logic public static int[][] AttackLogic2(int[][] player1,
+	 * int P1row, int P1col, Player p1, int[][] player2, int P2row, int P2col,
+	 * Player p2) {
+	 * 
+	 * int[][] p1 = player1; int[][] p2 = player2;
+	 * 
+	 * if (b[P1row][P1col] == 1 || b[P1row][P1col] == 2) {
+	 * System.out.println(b[P1row][P1col]); b[P1row][P1col] = b[P1row][P1col] - 1;
+	 * System.out.println(p1.getPlayerName() + "Hits" + "Row" + P1row + "Col" +
+	 * P1col);
+	 * 
+	 * } return b; }
+	 */
+	// Check Result of each player
+	public static boolean checkResult(int[][] a) {
+
+		boolean searchResult = false;
+
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a.length; j++) {
+				if (a[i][j] == 1 || a[i][j] == 2) {
+					System.out.println("Found it");
+					searchResult = false;
+					break;
+				}
+			}
+		}
+
+		if (searchResult) {
+			System.out.println("Found continue to play");
+			return false;
+		} else {
+			System.out.println("Winner");
+			return true;
+		}
+
+	}
 }
