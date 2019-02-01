@@ -21,7 +21,7 @@ public class PlayerDAO {
 	
 	private List<Player> playerData = new ArrayList<>();
 	
-	
+	List<String> message = new ArrayList<String>();
 
 	// flag to identify hit or miss
 	private static int hit = -1;
