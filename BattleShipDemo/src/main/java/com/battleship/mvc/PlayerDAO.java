@@ -17,11 +17,12 @@ public class PlayerDAO {
 	private final static Logger log = org.slf4j.LoggerFactory.getLogger(PlayerDAO.class);
 
 	private static Map<Integer, int[][]> data = new HashMap<>();
-	
-	
+
+	// Player 1 and Player 2 Data
 	private List<Player> playerData = new ArrayList<>();
-	
-	List<String> message = new ArrayList<String>();
+
+	// List of messages of players attack
+	public static List<String> message = new ArrayList<String>();
 
 	// flag to identify hit or miss
 	private static int hit = -1;
@@ -29,10 +30,13 @@ public class PlayerDAO {
 	// flag to identify current player
 	private static int currentPlayer = -1;
 
+	// Status to check results of player 1
 	private static boolean resultPlayer1 = false;
 
+	// Status to check results of player 2
 	private static boolean resultPlayer2 = false;
 
+	// Store data of Player1
 	public boolean storeData(Player p) throws Exception {
 
 		boolean result = BattleShipLogic.checkDimensionLogic(p);
@@ -49,6 +53,7 @@ public class PlayerDAO {
 		}
 	}
 
+	// Store data of Player2
 	public boolean storeData2(Player p) throws Exception {
 		boolean result = BattleShipLogic.checkDimensionLogic(p);
 		PlayerDAO.player2Details(p);
@@ -65,6 +70,7 @@ public class PlayerDAO {
 
 	}
 
+	// Store data of player1 with battleshipDimension and battleshiplocation
 	public static int[][] player1Details(Player p1) throws Exception {
 
 		int[][] player1 = new int[p1.getDimensionOfBattleGroundWidth()][p1.getDimensionOfBattleGroundHeight()];
@@ -87,6 +93,7 @@ public class PlayerDAO {
 
 	}
 
+	// Store data of player2 with battleshipDimension and battleshiplocation
 	public static int[][] player2Details(Player p2) throws Exception {
 
 		int[][] player2 = new int[p2.getDimensionOfBattleGroundWidth()][p2.getDimensionOfBattleGroundHeight()];
@@ -113,7 +120,6 @@ public class PlayerDAO {
 	// Attack logic
 	public boolean attackShips() {
 
-		String message[];
 		System.out.println("Attack ship method called");
 
 		int a[][] = data.get(1);
@@ -134,6 +140,7 @@ public class PlayerDAO {
 		if (hit == -1) {
 			currentPlayer = 1;
 			missilesOfPlayer1 = PlayerDAO.chanceToNextPlayer(b, missilesOfPlayer1, p1);
+
 			for (int i = 0; i < missilesOfPlayer1.size(); i++) {
 				System.out.println("List of modied array list after removing 1 element " + missilesOfPlayer1.get(i));
 			}
@@ -141,101 +148,107 @@ public class PlayerDAO {
 		}
 
 		for (int i = 0; i < lenghtOfBothArray; i++) {
-			if (hit == 0 || hit == 1) {
+			resultPlayer1 = BattleShipLogic.checkResult(b);
+			resultPlayer2 = BattleShipLogic.checkResult(a);
+			if (resultPlayer1 == false) {
+				message.add("Player 1 Wins");
+				break;
+			} else if (resultPlayer2 == false) {
+				message.add("Player 2 Wins");
+				break;
+			} else {
 
-				switch (hit) {
+				if (hit == 0 || hit == 1) {
 
-				case 1:
-					if (currentPlayer == 1) {
-						resultPlayer1 = BattleShipLogic.checkResult(b);
-						if (missilesOfPlayer2.size() == 0) {
+					switch (hit) {
+
+					case 1:
+						if (currentPlayer == 1) {
+
+							if (missilesOfPlayer2.size() == 0) {
+								message.add("Player2 Runs out of missiles");
+								chanceToNextPlayer(b, missilesOfPlayer1, p1);
+								currentPlayer = 1;
+							}
+							System.out.println("Hit by player 1");
+
 							chanceToNextPlayer(b, missilesOfPlayer1, p1);
-							currentPlayer = 1;
-						}
-						System.out.println("Hit by player 1");
 
-						chanceToNextPlayer(b, missilesOfPlayer1, p1);
+						} else if (currentPlayer == 2) {
 
-					} else if (currentPlayer == 2) {
-						resultPlayer2 = BattleShipLogic.checkResult(a);
-						if (missilesOfPlayer1.size() == 0) {
+							if (missilesOfPlayer1.size() == 0) {
+								message.add("Player1 Runs out of missiles");
+								chanceToNextPlayer(a, missilesOfPlayer2, p2);
+								currentPlayer = 2;
+							}
+							System.out.println("Hit by player 2");
 							chanceToNextPlayer(a, missilesOfPlayer2, p2);
-							currentPlayer = 2;
 						}
-						System.out.println("Hit by player 2");
-						chanceToNextPlayer(a, missilesOfPlayer2, p2);
+
+					case 0:
+						if (currentPlayer == 1) {
+							System.out.println("Miss by player 1");
+							if (missilesOfPlayer2.size() == 0) {
+								message.add("Player2 Runs out of missiles");
+								chanceToNextPlayer(b, missilesOfPlayer1, p1);
+								currentPlayer = 1;
+							} else {
+								currentPlayer = 2;
+								chanceToNextPlayer(a, missilesOfPlayer2, p2);
+							}
+						} else if (currentPlayer == 2) {
+							System.out.println("Miss by player 2");
+							if (missilesOfPlayer1.size() == 0) {
+								message.add("Player1 Runs out of missiles");
+								chanceToNextPlayer(a, missilesOfPlayer2, p2);
+								currentPlayer = 2;
+							} else {
+								currentPlayer = 1;
+								chanceToNextPlayer(b, missilesOfPlayer1, p1);
+							}
+
+						}
+
 					}
-
-				case 0:
-					if (currentPlayer == 1) {
-						System.out.println("Miss by player 1");
-						if (missilesOfPlayer2.size() == 0) {
-							chanceToNextPlayer(b, missilesOfPlayer1, p1);
-							currentPlayer = 1;
-						} else {
-							currentPlayer = 2;
-							chanceToNextPlayer(a, missilesOfPlayer2, p2);
-						}
-					} else if (currentPlayer == 2) {
-						System.out.println("Miss by player 2");
-						if (missilesOfPlayer1.size() == 0) {
-							chanceToNextPlayer(a, missilesOfPlayer2, p2);
-							currentPlayer = 2;
-						} else {
-							currentPlayer = 1;
-							chanceToNextPlayer(b, missilesOfPlayer1, p1);
-						}
-
-					}
-
 				}
 			}
+
 		}
-
 		return false;
-
 	}
 
+	//Logic to give chance to next player
 	public static List<String> chanceToNextPlayer(int[][] player, List<String> missile, Player p) {
 
-		System.out.println("Inside chanceToNextPlayer function " + "hit" + hit + "player board" + player);
-		for (int j = 0; j < missile.size(); j++) {
-			System.out.println("Inside chanceToNextPlayer missle list" + missile.get(j));
-		}
+		for (int i = 0; i < missile.size();) {
 
-		List<String> missileDuplicate = missile;
-
-		for (int i = 0; i < missileDuplicate.size();) {
-
-			String missileLocation = missileDuplicate.get(i);
+			String missileLocation = missile.get(i);
 			int locationRow = BattleShipLogic.checkChar(missileLocation);
 			int locationCol = BattleShipLogic.checkNumber(missileLocation);
 			boolean hitResult = BattleShipLogic.Attack(player, locationRow, locationCol, p);
-			missileDuplicate.remove(i);
+			String hitNumber;
+			String battleShipCurrentPlayer;
 
 			if (hitResult == true) {
 				hit = 1;
-				return missileDuplicate;
+				hitNumber = BattleShipLogic.hitLogic(hit);
+				battleShipCurrentPlayer = BattleShipLogic.playerLogic(currentPlayer);
+				message.add(battleShipCurrentPlayer + " " + hitNumber + " " + missileLocation);
+				missile.remove(i);
+				return missile;
 			} else {
 				hit = 0;
-				return missileDuplicate;
+				hitNumber = BattleShipLogic.hitLogic(hit);
+				battleShipCurrentPlayer = BattleShipLogic.playerLogic(currentPlayer);
+				message.add(battleShipCurrentPlayer + " " + hitNumber + " " + missileLocation);
+				missile.remove(i);
+				return missile;
 			}
+
 		}
 
-		return missileDuplicate;
+		return missile;
 
-	}
-
-	public static int[][] updatePlayer1(int[][] player1BattleShip) {
-
-		BattleShipLogic.printArray(player1BattleShip);
-		return player1BattleShip;
-	}
-
-	public static int[][] updatePlayer2(int[][] player2BattleShip) {
-
-		BattleShipLogic.printArray(player2BattleShip);
-		return player2BattleShip;
 	}
 
 }

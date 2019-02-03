@@ -1,5 +1,7 @@
 package com.battleship.mvc;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -38,7 +40,6 @@ public class Controller {
 
 		ModelAndView mv = new ModelAndView();
 
-
 		Player p = new Player();
 		p.setPlayerName(request.getParameter("player1"));
 		p.setPlayerNumber(1);
@@ -48,7 +49,7 @@ public class Controller {
 
 		p.setDimensionOfShip1Column(Integer.parseInt(request.getParameter("shipp1Height")));
 		p.setDimensionOfShip1Row(Integer.parseInt(request.getParameter("shipp1Width")));
-		
+
 		p.setDimensionOfShip2Column(Integer.parseInt(request.getParameter("shipQ1Height")));
 		p.setDimensionOfShip2Row(Integer.parseInt(request.getParameter("shipQ1Width")));
 
@@ -57,7 +58,6 @@ public class Controller {
 
 		p.setAddBattleField2ToDimension(request.getParameter("setShipQ"));
 		p.setMissileTarget(request.getParameter("missiles"));
-
 
 		boolean result = service.sendDataToDAO(p);
 		if (result == true) {
@@ -75,8 +75,7 @@ public class Controller {
 	public ModelAndView addPlayer2(HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView();
-		
-		
+
 		Player p = new Player();
 		p.setPlayerName(request.getParameter("player1"));
 		p.setPlayerNumber(2);
@@ -91,8 +90,7 @@ public class Controller {
 		p.setDimensionOfShip2Row(Integer.parseInt(request.getParameter("shipQ1Width")));
 		p.setAddBattleField2ToDimension(request.getParameter("setShipQ"));
 		p.setMissileTarget(request.getParameter("missiles"));
-		
-		
+
 		boolean result = service.sendData2ToDAO(p);
 
 		if (result == true) {
@@ -106,11 +104,21 @@ public class Controller {
 	}
 
 	@RequestMapping("/StartGame")
-	public String gameStart() {
+	public ModelAndView gameStart() {
 
-		 service.attackSeviceData();
+		service.attackSeviceData();
+		List<String> listOfAttackMessages = PlayerDAO.message;
+		ModelAndView mv = new ModelAndView();
+		
+		System.out.println("Controller method result called");
+		for (String string : listOfAttackMessages) {
+			System.out.println(string);
+		}
 
-		return "battleResult";
+		mv.addObject("listOfAttackMessages", listOfAttackMessages);
+		mv.setViewName("battleResult");
+
+		return mv;
 	}
 
 }

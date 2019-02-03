@@ -156,28 +156,14 @@ public class BattleShipLogic {
 		if (b[row][col] == 1 || b[row][col] == 2) {
 			System.out.println(b[row][col]);
 			b[row][col] = b[row][col] - 1;
-			System.out.println(p.getPlayerName() + "Hits" + "Row" + row + "Col" + col);
+			//System.out.println(p.getPlayerName() + "Hits" + "Row" + row + "Col" + col);
 			printArray(b);
 			return true;
 		}
 		return false;
 	}
 
-	/*
-	 * // Attacking player logic public static int[][] AttackLogic2(int[][] player1,
-	 * int P1row, int P1col, Player p1, int[][] player2, int P2row, int P2col,
-	 * Player p2) {
-	 * 
-	 * int[][] p1 = player1; int[][] p2 = player2;
-	 * 
-	 * if (b[P1row][P1col] == 1 || b[P1row][P1col] == 2) {
-	 * System.out.println(b[P1row][P1col]); b[P1row][P1col] = b[P1row][P1col] - 1;
-	 * System.out.println(p1.getPlayerName() + "Hits" + "Row" + P1row + "Col" +
-	 * P1col);
-	 * 
-	 * } return b; }
-	 */
-	// Check Result of each player
+	//Code to check the result of player
 	public static boolean checkResult(int[][] a) {
 
 		boolean searchResult = false;
@@ -185,8 +171,7 @@ public class BattleShipLogic {
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a.length; j++) {
 				if (a[i][j] == 1 || a[i][j] == 2) {
-					System.out.println("Found it");
-					searchResult = false;
+					searchResult = true;
 					break;
 				}
 			}
@@ -194,11 +179,47 @@ public class BattleShipLogic {
 
 		if (searchResult) {
 			System.out.println("Found continue to play");
-			return false;
+			return true;
 		} else {
 			System.out.println("Winner");
-			return true;
+			return false;
 		}
+
+	}
+
+	public static String hitLogic(int number) {
+
+		String hitResultName = null;
+		switch (number) {
+
+		case 1:
+			hitResultName = "Hit";
+			break;
+
+		case 0:
+			hitResultName = "Miss";
+			break;
+		}
+
+		return hitResultName;
+
+	}
+
+	public static String playerLogic(int number) {
+
+		String playerName = null;
+
+		switch (number) {
+		case 1:
+			playerName = "Player1 ";
+			break;
+
+		case 2:
+			playerName = "Player2 ";
+			break;
+		}
+		
+		return playerName;
 
 	}
 }
