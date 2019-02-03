@@ -10,10 +10,10 @@
 </head>
 <body>
 
-	<h2>Battle results are :</h2>
+	<h1 align="center">Battle results are :</h1>
 
 
-
+<h2>
 	<%
 		List<String> player = (List<String>) request.getAttribute("listOfAttackMessages");
 
@@ -26,7 +26,7 @@
 	<%
 		}
 	%>
-
+</h2>
 
 </body>
 </html>

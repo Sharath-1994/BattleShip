@@ -92,7 +92,7 @@
 		</select> <br>
 		<br>
 
-	Missile targets for player 2: <input type="text" name="missiles"  required="required"  placeholder="Missile Target Location" >
+	Missile targets for player 2: <input type="text" name="missiles"  required="required"  placeholder="Missile Target Location" > Note:Required Format(Eg: A1,A2,A3)
 		<br>
 		<br>
 		<input type="submit" value="Submit">

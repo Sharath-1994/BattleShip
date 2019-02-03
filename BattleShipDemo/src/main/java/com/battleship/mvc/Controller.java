@@ -104,6 +104,8 @@ public class Controller {
 	}
 
 	@RequestMapping("/StartGame")
+	
+	//Method called to show the battle field Results
 	public ModelAndView gameStart() {
 
 		service.attackSeviceData();

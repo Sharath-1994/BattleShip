@@ -141,10 +141,6 @@ public class PlayerDAO {
 			currentPlayer = 1;
 			missilesOfPlayer1 = PlayerDAO.chanceToNextPlayer(b, missilesOfPlayer1, p1);
 
-			for (int i = 0; i < missilesOfPlayer1.size(); i++) {
-				System.out.println("List of modied array list after removing 1 element " + missilesOfPlayer1.get(i));
-			}
-
 		}
 
 		for (int i = 0; i < lenghtOfBothArray; i++) {
@@ -156,7 +152,15 @@ public class PlayerDAO {
 			} else if (resultPlayer2 == false) {
 				message.add("Player 2 Wins");
 				break;
-			} else {
+			} else if (missilesOfPlayer1.size() == 0 && missilesOfPlayer2.size() == 0
+					&& (resultPlayer1 && resultPlayer2) == true) {
+
+				message.add("Match draw");
+				break;
+
+			}
+
+			else {
 
 				if (hit == 0 || hit == 1) {
 
@@ -169,10 +173,13 @@ public class PlayerDAO {
 								message.add("Player2 Runs out of missiles");
 								chanceToNextPlayer(b, missilesOfPlayer1, p1);
 								currentPlayer = 1;
-							}
-							System.out.println("Hit by player 1");
+							} else {
+								log.info("Hit by player 1");
 
-							chanceToNextPlayer(b, missilesOfPlayer1, p1);
+								chanceToNextPlayer(b, missilesOfPlayer1, p1);
+
+								break;
+							}
 
 						} else if (currentPlayer == 2) {
 
@@ -180,14 +187,16 @@ public class PlayerDAO {
 								message.add("Player1 Runs out of missiles");
 								chanceToNextPlayer(a, missilesOfPlayer2, p2);
 								currentPlayer = 2;
+							} else {
+								log.info("Hit by player 2");
+								chanceToNextPlayer(a, missilesOfPlayer2, p2);
+								break;
 							}
-							System.out.println("Hit by player 2");
-							chanceToNextPlayer(a, missilesOfPlayer2, p2);
 						}
 
 					case 0:
 						if (currentPlayer == 1) {
-							System.out.println("Miss by player 1");
+							log.info("Miss by player 1");
 							if (missilesOfPlayer2.size() == 0) {
 								message.add("Player2 Runs out of missiles");
 								chanceToNextPlayer(b, missilesOfPlayer1, p1);
@@ -197,7 +206,7 @@ public class PlayerDAO {
 								chanceToNextPlayer(a, missilesOfPlayer2, p2);
 							}
 						} else if (currentPlayer == 2) {
-							System.out.println("Miss by player 2");
+							log.info("Miss by player 2");
 							if (missilesOfPlayer1.size() == 0) {
 								message.add("Player1 Runs out of missiles");
 								chanceToNextPlayer(a, missilesOfPlayer2, p2);
@@ -217,7 +226,7 @@ public class PlayerDAO {
 		return false;
 	}
 
-	//Logic to give chance to next player
+	// Logic to give chance to next player
 	public static List<String> chanceToNextPlayer(int[][] player, List<String> missile, Player p) {
 
 		for (int i = 0; i < missile.size();) {
